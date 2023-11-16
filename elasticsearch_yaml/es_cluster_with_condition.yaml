@@ -1,0 +1,220 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Elasticsearch
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kubedb.com/v1alpha2","kind":"Elasticsearch","metadata":{"annotations":{},"name":"es-quickstart","namespace":"demo"},"spec":{"enableSSL":true,"storageType":"Durable","tls":{"issuerRef":{"apiGroup":"cert-manager.io","kind":"Issuer","name":"es-issuer"}},"topology":{"data":{"replicas":2,"storage":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Gi"}},"storageClassName":"standard"},"suffix":"data"},"ingest":{"replicas":1,"storage":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Gi"}},"storageClassName":"standard"},"suffix":"client"},"master":{"replicas":1,"storage":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Gi"}},"storageClassName":"standard"},"suffix":"master"}},"version":"xpack-8.5.2"}}
+  creationTimestamp: "2023-08-03T08:24:21Z"
+  finalizers:
+  - kubedb.com
+  generation: 1
+  name: es-quickstart
+  namespace: demo
+  resourceVersion: "69670"
+  uid: 303e811d-8d66-4ae8-9d54-bd56dc1dfd39
+spec:
+  authSecret:
+    name: es-quickstart-elastic-cred
+  autoOps: {}
+  enableSSL: true
+  healthChecker:
+    failureThreshold: 1
+    periodSeconds: 10
+    timeoutSeconds: 10
+  heapSizePercentage: 50
+  internalUsers:
+    apm_system:
+      backendRoles:
+      - apm_system
+      secretName: es-quickstart-apm-system-cred
+    beats_system:
+      backendRoles:
+      - beats_system
+      secretName: es-quickstart-beats-system-cred
+    elastic:
+      backendRoles:
+      - superuser
+      secretName: es-quickstart-elastic-cred
+    kibana_system:
+      backendRoles:
+      - kibana_system
+      secretName: es-quickstart-kibana-system-cred
+    logstash_system:
+      backendRoles:
+      - logstash_system
+      secretName: es-quickstart-logstash-system-cred
+    remote_monitoring_user:
+      backendRoles:
+      - remote_monitoring_collector
+      - remote_monitoring_agent
+      secretName: es-quickstart-remote-monitoring-user-cred
+  kernelSettings:
+    privileged: true
+    sysctls:
+    - name: vm.max_map_count
+      value: "262144"
+  podTemplate:
+    controller: {}
+    metadata: {}
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: ${NODE_ROLE}
+                  operator: Exists
+                matchLabels:
+                  app.kubernetes.io/instance: es-quickstart
+                  app.kubernetes.io/managed-by: kubedb.com
+                  app.kubernetes.io/name: elasticsearches.kubedb.com
+              namespaces:
+              - demo
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: ${NODE_ROLE}
+                  operator: Exists
+                matchLabels:
+                  app.kubernetes.io/instance: es-quickstart
+                  app.kubernetes.io/managed-by: kubedb.com
+                  app.kubernetes.io/name: elasticsearches.kubedb.com
+              namespaces:
+              - demo
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 50
+      containerSecurityContext:
+        capabilities:
+          add:
+          - IPC_LOCK
+          - SYS_RESOURCE
+        privileged: false
+        runAsUser: 1000
+      resources: {}
+      serviceAccountName: es-quickstart
+  storageType: Durable
+  terminationPolicy: Delete
+  tls:
+    certificates:
+    - alias: transport
+      privateKey:
+        encoding: PKCS8
+      secretName: es-quickstart-transport-cert
+      subject:
+        organizations:
+        - kubedb
+    - alias: http
+      privateKey:
+        encoding: PKCS8
+      secretName: es-quickstart-http-cert
+      subject:
+        organizations:
+        - kubedb
+    - alias: client
+      privateKey:
+        encoding: PKCS8
+      secretName: es-quickstart-client-cert
+      subject:
+        organizations:
+        - kubedb
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: es-issuer
+  topology:
+    data:
+      replicas: 2
+      resources:
+        limits:
+          memory: 1536Mi
+        requests:
+          cpu: 500m
+          memory: 1536Mi
+      storage:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+      suffix: data
+    ingest:
+      replicas: 1
+      resources:
+        limits:
+          memory: 1536Mi
+        requests:
+          cpu: 500m
+          memory: 1536Mi
+      storage:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+      suffix: client
+    master:
+      replicas: 1
+      resources:
+        limits:
+          memory: 1536Mi
+        requests:
+          cpu: 500m
+          memory: 1536Mi
+      storage:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+      suffix: master
+  version: xpack-8.5.2
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-03T08:24:21Z"
+    message: 'The KubeDB operator has started the provisioning of Elasticsearch: demo/es-quickstart'
+    reason: DatabaseProvisioningStartedSuccessfully
+    status: "True"
+    type: ProvisioningStarted
+  - lastTransitionTime: "2023-08-03T08:24:53Z"
+    message: All desired replicas are ready.
+    reason: AllReplicasReady
+    status: "True"
+    type: ReplicaReady
+  - lastTransitionTime: "2023-08-03T08:24:39Z"
+    message: 'Internal Users for Elasticsearch: demo/es-quickstart is ready.'
+    observedGeneration: 1
+    reason: InternalUsersCredentialsSyncedSuccessfully
+    status: "True"
+    type: InternalUsersSynced
+  - lastTransitionTime: "2023-08-03T08:25:22Z"
+    message: 'The Elasticsearch: demo/es-quickstart is accepting client requests.'
+    observedGeneration: 1
+    reason: DatabaseAcceptingConnectionRequest
+    status: "True"
+    type: AcceptingConnection
+  - lastTransitionTime: "2023-08-03T08:25:22Z"
+    message: 'The Elasticsearch: demo/es-quickstart is ready.'
+    observedGeneration: 1
+    reason: ReadinessCheckSucceeded
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2023-08-03T08:25:22Z"
+    message: 'The Elasticsearch: demo/es-quickstart is accepting write requests.'
+    observedGeneration: 1
+    reason: DatabaseWriteAccessCheckSucceeded
+    status: "True"
+    type: DatabaseWriteAccess
+  - lastTransitionTime: "2023-08-03T08:25:32Z"
+    message: 'The Elasticsearch: demo/es-quickstart is accepting read requests.'
+    observedGeneration: 1
+    reason: DatabaseReadAccessCheckSucceeded
+    status: "True"
+    type: DatabaseReadAccess
+  observedGeneration: 1
+  phase: Provisioning

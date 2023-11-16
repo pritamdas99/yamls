@@ -1,0 +1,41 @@
+apiVersion: ops.kubedb.com/v1alpha1
+kind: ElasticsearchOpsRequest
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ops.kubedb.com/v1alpha1","kind":"ElasticsearchOpsRequest","metadata":{"annotations":{},"name":"remove-tls","namespace":"demo"},"spec":{"databaseRef":{"name":"es-quickstart"},"tls":{"remove":true},"type":"ReconfigureTLS"}}
+  creationTimestamp: "2023-08-08T03:53:09Z"
+  generation: 1
+  name: remove-tls
+  namespace: demo
+  resourceVersion: "234244"
+  uid: 3a6e4635-4e99-4576-94d6-8b5d16042b5a
+spec:
+  apply: IfReady
+  databaseRef:
+    name: es-quickstart
+  tls:
+    remove: true
+  type: ReconfigureTLS
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-08T03:53:09Z"
+    message: Elasticsearch ops request is reconfiguring TLS
+    observedGeneration: 1
+    reason: ReconfigureTLS
+    status: "True"
+    type: ReconfigureTLS
+  - lastTransitionTime: "2023-08-08T03:56:14Z"
+    message: Successfully restarted all the nodes
+    observedGeneration: 1
+    reason: RestartNodes
+    status: "True"
+    type: RestartNodes
+  - lastTransitionTime: "2023-08-08T03:56:14Z"
+    message: Successfully reconfigured TLS
+    observedGeneration: 1
+    reason: Successful
+    status: "True"
+    type: Successful
+  observedGeneration: 1
+  phase: Successful

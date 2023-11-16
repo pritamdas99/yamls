@@ -1,0 +1,48 @@
+apiVersion: ops.kubedb.com/v1alpha1
+kind: ElasticsearchOpsRequest
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ops.kubedb.com/v1alpha1","kind":"ElasticsearchOpsRequest","metadata":{"annotations":{},"name":"es-quickstart-update","namespace":"demo"},"spec":{"databaseRef":{"name":"es-quickstart"},"type":"UpdateVersion","updateVersion":{"targetVersion":"xpack-8.8.0"}}}
+  creationTimestamp: "2023-08-07T04:53:52Z"
+  generation: 1
+  name: es-quickstart-update
+  namespace: demo
+  resourceVersion: "161446"
+  uid: d9faab80-a272-40c1-9963-f1fd4d32232d
+spec:
+  apply: IfReady
+  databaseRef:
+    name: es-quickstart
+  type: UpdateVersion
+  updateVersion:
+    targetVersion: xpack-8.8.0
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-07T04:53:52Z"
+    message: Elasticsearch ops request is updating database version
+    observedGeneration: 1
+    reason: UpdateVersion
+    status: "True"
+    type: UpdateVersion
+  - lastTransitionTime: "2023-08-07T04:53:53Z"
+    message: Successfully updated statefulsets
+    observedGeneration: 1
+    reason: UpdateStatefulSets
+    status: "True"
+    type: UpdateStatefulSets
+  - lastTransitionTime: "2023-08-07T04:57:33Z"
+    message: Successfully updated all nodes
+    observedGeneration: 1
+    reason: RestartPods
+    status: "True"
+    type: RestartPods
+  - lastTransitionTime: "2023-08-07T04:57:33Z"
+    message: Successfully completed the modification process.
+    observedGeneration: 1
+    reason: Successful
+    status: "True"
+    type: Successful
+  observedGeneration: 1
+  phase: Successful
+

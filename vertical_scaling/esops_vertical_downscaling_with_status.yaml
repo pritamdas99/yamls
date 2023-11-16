@@ -1,0 +1,60 @@
+apiVersion: ops.kubedb.com/v1alpha1
+kind: ElasticsearchOpsRequest
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ops.kubedb.com/v1alpha1","kind":"ElasticsearchOpsRequest","metadata":{"annotations":{},"name":"vscale-topology-downscaling","namespace":"demo"},"spec":{"databaseRef":{"name":"es-quickstart"},"type":"VerticalScaling","verticalScaling":{"topology":{"master":{"limits":{"cpu":"800m","memory":"1Gi"},"requests":{"cpu":"800m","memory":"1Gi"}}}}}}
+  creationTimestamp: "2023-08-07T04:33:57Z"
+  generation: 1
+  name: vscale-topology-downscaling
+  namespace: demo
+  resourceVersion: "159240"
+  uid: 766472ef-23e0-40e8-9eed-1b33cdfc57a5
+spec:
+  apply: IfReady
+  databaseRef:
+    name: es-quickstart
+  type: VerticalScaling
+  verticalScaling:
+    topology:
+      master:
+        limits:
+          cpu: 800m
+          memory: 1Gi
+        requests:
+          cpu: 800m
+          memory: 1Gi
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-07T04:33:57Z"
+    message: Elasticsearch ops request is vertically scaling the nodes
+    observedGeneration: 1
+    reason: VerticalScale
+    status: "True"
+    type: VerticalScale
+  - lastTransitionTime: "2023-08-07T04:34:02Z"
+    message: successfully reconciled the Elasticsearch resources
+    observedGeneration: 1
+    reason: UpdateStatefulSets
+    status: "True"
+    type: UpdateStatefulSets
+  - lastTransitionTime: "2023-08-07T04:34:57Z"
+    message: Successfully restarted all nodes
+    observedGeneration: 1
+    reason: RestartNodes
+    status: "True"
+    type: RestartNodes
+  - lastTransitionTime: "2023-08-07T04:35:02Z"
+    message: successfully updated Elasticsearch CR
+    observedGeneration: 1
+    reason: UpdateDatabase
+    status: "True"
+    type: UpdateDatabase
+  - lastTransitionTime: "2023-08-07T04:35:02Z"
+    message: Successfully completed the modification process.
+    observedGeneration: 1
+    reason: Successful
+    status: "True"
+    type: Successful
+  observedGeneration: 1
+  phase: Successful

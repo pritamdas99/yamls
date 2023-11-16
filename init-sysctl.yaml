@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sysctl
+  namespace: demox
+  labels:
+    app: init
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: init
+  template:
+    metadata:
+      labels:
+        app: init
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - sysctl -w vm.max_map_count=262144
+        image: tianon/toybox:0.8.4
+        imagePullPolicy: IfNotPresent
+        name: init-sysctl
+        resources: {}
+        securityContext:
+          privileged: true
+          runAsUser: 0

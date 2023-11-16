@@ -1,0 +1,57 @@
+apiVersion: ops.kubedb.com/v1alpha1
+kind: ElasticsearchOpsRequest
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ops.kubedb.com/v1alpha1","kind":"ElasticsearchOpsRequest","metadata":{"annotations":{},"name":"add-tls","namespace":"demo"},"spec":{"databaseRef":{"name":"es-quickstart"},"tls":{"certificates":[{"alias":"http","emailAddresses":["abc@kubedb.com"],"subject":{"organizations":["kubedb.com"]}}],"issuerRef":{"apiGroup":"cert-manager.io","kind":"Issuer","name":"es-issuer"}},"type":"ReconfigureTLS"}}
+  creationTimestamp: "2023-08-07T07:55:56Z"
+  generation: 1
+  name: add-tls
+  namespace: demo
+  resourceVersion: "182156"
+  uid: 187d9813-93b2-459e-bc41-de775a8cfd68
+spec:
+  apply: IfReady
+  databaseRef:
+    name: es-quickstart
+  tls:
+    certificates:
+    - alias: http
+      emailAddresses:
+      - abc@kubedb.com
+      subject:
+        organizations:
+        - kubedb.com
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: es-issuer
+  type: ReconfigureTLS
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-07T07:55:56Z"
+    message: Elasticsearch ops request is reconfiguring TLS
+    observedGeneration: 1
+    reason: ReconfigureTLS
+    status: "True"
+    type: ReconfigureTLS
+  - lastTransitionTime: "2023-08-07T07:56:01Z"
+    message: Successfully synced all certificates
+    observedGeneration: 1
+    reason: CertificateSynced
+    status: "True"
+    type: CertificateSynced
+  - lastTransitionTime: "2023-08-07T07:59:31Z"
+    message: Successfully restarted all the nodes
+    observedGeneration: 1
+    reason: RestartNodes
+    status: "True"
+    type: RestartNodes
+  - lastTransitionTime: "2023-08-07T07:59:31Z"
+    message: Successfully reconfigured TLS
+    observedGeneration: 1
+    reason: Successful
+    status: "True"
+    type: Successful
+  observedGeneration: 1
+  phase: Successful

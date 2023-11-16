@@ -1,0 +1,49 @@
+apiVersion: ops.kubedb.com/v1alpha1
+kind: ElasticsearchOpsRequest
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ops.kubedb.com/v1alpha1","kind":"ElasticsearchOpsRequest","metadata":{"annotations":{},"name":"hscale-topology","namespace":"demo"},"spec":{"databaseRef":{"name":"es-quickstart"},"horizontalScaling":{"topology":{"data":2}},"type":"HorizontalScaling"}}
+  creationTimestamp: "2023-08-07T03:33:30Z"
+  generation: 1
+  name: hscale-topology
+  namespace: demo
+  resourceVersion: "153513"
+  uid: 974db85d-78c0-4a1f-8492-9335ef8db431
+spec:
+  apply: IfReady
+  databaseRef:
+    name: es-quickstart
+  horizontalScaling:
+    topology:
+      data: 2
+  type: HorizontalScaling
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-07T03:33:30Z"
+    message: Elasticsearch ops request is horizontally scaling the nodes.
+    observedGeneration: 1
+    reason: HorizontalScale
+    status: "True"
+    type: HorizontalScale
+  - lastTransitionTime: "2023-08-07T03:34:20Z"
+    message: ScaleUp es-quickstart-data nodes
+    observedGeneration: 1
+    reason: HorizontalScaleDataNode
+    status: "True"
+    type: HorizontalScaleDataNode
+  - lastTransitionTime: "2023-08-07T03:34:25Z"
+    message: successfully updated Elasticsearch CR
+    observedGeneration: 1
+    reason: UpdateDatabase
+    status: "True"
+    type: UpdateDatabase
+  - lastTransitionTime: "2023-08-07T03:34:25Z"
+    message: Successfully Horizontally Scaled.
+    observedGeneration: 1
+    reason: Successful
+    status: "True"
+    type: Successful
+  observedGeneration: 1
+  phase: Successful
+
