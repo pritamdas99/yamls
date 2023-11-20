@@ -1,0 +1,21 @@
+apiVersion: core.kubestash.com/v1alpha1
+kind: RestoreSession
+metadata:
+  name: restore-es
+  namespace: dm
+spec:
+  target:
+    name: es-quickstart
+    namespace: dm
+    apiGroup: kubedb.com
+    kind: Elasticsearch
+  dataSource:
+    snapshot: s3-repo-els-db-backup-frequent-backup-1700457060
+    repository: s3-repo-els
+    encryptionSecret:
+      name: encry-secret 
+      namespace: dm
+  addon:
+    name: elasticsearch
+    tasks:
+      - name: restore-es

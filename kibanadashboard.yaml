@@ -1,0 +1,21 @@
+apiVersion: dashboard.kubedb.com/v1alpha1
+kind: ElasticsearchDashboard
+metadata:
+  name: es-cluster-dashboard
+  namespace: demo
+spec:
+  enableSSL: true
+  databaseRef:
+    name: es-quickstart
+  # podTemplate:
+  #   spec:
+  #     containerSecurityContext:
+  #       allowPrivilegeEscalation: false
+  #       capabilities:
+  #         drop:
+  #         - ALL
+  #       runAsNonRoot: true
+  #       runAsUser: 1000
+  #       seccompProfile:
+  #         type: RuntimeDefault
+  terminationPolicy: WipeOut

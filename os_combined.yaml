@@ -1,10 +1,10 @@
 apiVersion: kubedb.com/v1alpha2
 kind: Elasticsearch
 metadata:
-  name: es-quickstart
-  namespace: dm
+  name: os-quickstart
+  namespace: demo
 spec:
-  version: xpack-8.8.0
+  version: opensearch-2.8.0
   enableSSL: true
   replicas: 2
   storageType: Durable

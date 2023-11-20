@@ -2,23 +2,21 @@ apiVersion: core.kubestash.com/v1alpha1
 kind: BackupConfiguration
 metadata:
   name: db-backup
-  namespace: demo
+  namespace: dm
 spec:
   target:
     apiGroup: kubedb.com
     kind: Elasticsearch
-    namespace: demo
+    namespace: dm
     name: es-quickstart
   backends:
   - name: s3-backend
     storageRef:
-      apiGroup: storage.kubestash.com
-      namespace: demo
-      kind: BackupStorage
-      name: s3-storage
+      namespace: dm
+      name: s3-store
     retentionPolicy:
       name: rp
-      namespace: demo
+      namespace: dm
   sessions:
   - name: frequent-backup
     sessionHistoryLimit: 10
@@ -29,12 +27,12 @@ spec:
       jobTemplate:
         backoffLimit: 1
     repositories:
-    - name: s3-repo-es
+    - name: s3-repo-els
       backend: s3-backend
-      directory: /sample/kubestashs/elastic
+      directory: /sample/kubestashs/els
       encryptionSecret:
         name: encry-secret # some addon may not support encryption
-        namespace: demo
+        namespace: dm
     addon:
       name: elasticsearch
       tasks:

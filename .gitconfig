@@ -1,0 +1,9 @@
+[user]
+    name = 
+    email = @appscode.com
+[core]
+    excludesfile = /home/aadee/.gitignore
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+[init]
+    defaultBranch = main

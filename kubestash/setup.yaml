@@ -3,7 +3,7 @@ kind: Function
 metadata:
   name: es-backup
 spec:
-  image: pritam99/elasticsearch:refactor_linux_amd64
+  image: pritam99/elasticsearch:v0.1.0-rc.0-3-ga3a079e_linux_amd64
   args:
   - backup
   - --scratch-dir=/tmp
@@ -19,7 +19,7 @@ kind: Function
 metadata:
   name: es-restore
 spec:
-  image: pritam99/elasticsearch:refactor_linux_amd64
+  image: pritam99/elasticsearch:v0.1.0-rc.0-3-ga3a079e_linux_amd64
   args:
   - restore
   - --scratch-dir=${scratchDir:=/tmp}

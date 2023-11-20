@@ -1,8 +1,8 @@
 apiVersion: storage.kubestash.com/v1alpha1
 kind: BackupStorage
 metadata:
-  name: s3-storage
-  namespace: demo
+  name: s3-store
+  namespace: dm
 spec:
   storage:
     provider: s3
