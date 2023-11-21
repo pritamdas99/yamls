@@ -1,8 +1,8 @@
 apiVersion: storage.kubestash.com/v1alpha1
 kind: RetentionPolicy
 metadata:
-  name: rp
-  namespace: dm
+  name: es-dev-retention-policy
+  namespace: elastic
 spec:
   maxRetentionPeriod: 2mo
   successfulSnapshots:

@@ -1,24 +1,24 @@
 apiVersion: core.kubestash.com/v1alpha1
 kind: BackupConfiguration
 metadata:
-  name: db-backup
-  namespace: dm
+  name: es-dev-backup
+  namespace: elastic
 spec:
   target:
     apiGroup: kubedb.com
     kind: Elasticsearch
-    namespace: dm
-    name: es-quickstart
+    namespace: elastic
+    name: es-dev
   backends:
   - name: s3-backend
     storageRef:
-      namespace: dm
+      namespace: elastic
       name: s3-store
     retentionPolicy:
-      name: rp
-      namespace: dm
+      name: es-dev-retention-policy
+      namespace: elastic
   sessions:
-  - name: frequent-backup
+  - name: es-dev-frequent-backup
     sessionHistoryLimit: 10
     scheduler:
       schedule: "*/1 * * * *"
@@ -27,12 +27,12 @@ spec:
       jobTemplate:
         backoffLimit: 1
     repositories:
-    - name: s3-repo-els
+    - name: es-dev-s3-repo
       backend: s3-backend
-      directory: /sample/kubestashs/els
+      directory: /sample/kubestashs/es-dev
       encryptionSecret:
         name: encry-secret # some addon may not support encryption
-        namespace: dm
+        namespace: elastic
     addon:
       name: elasticsearch
       tasks:
@@ -40,14 +40,5 @@ spec:
       jobTemplate:
         spec:
           securityContext:
-            runAsUser: 0
-            runAsGroup: 0
-    #     targetVolumes:
-    #       volumeMounts:
-    #       - name: source-data
-    #         mountPath: /source/data
-    #     params:
-    #       paths: /source/data
-    # retryConfig:
-    #   maxRetry: 2
-    #   delay: 1m
+            runAsUser: 1000
+            runAsGroup: 1000

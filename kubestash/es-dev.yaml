@@ -1,8 +1,8 @@
 apiVersion: kubedb.com/v1alpha2
 kind: Elasticsearch
 metadata:
-  name: es-demo
-  namespace: demo
+  name: es-dev
+  namespace: elastic
 spec:
   version: xpack-8.8.0
   enableSSL: true
@@ -16,3 +16,4 @@ spec:
       requests:
         storage: 1Gi
   terminationPolicy: Delete
+
