@@ -10,15 +10,15 @@ spec:
     apiGroup: kubedb.com
     kind: Elasticsearch
   dataSource:
-    snapshot: es-dev-s3-repo-es-dev-backup-es-dev-frequent-backup-1700544300
+    snapshot: latest
     repository: es-dev-s3-repo
     encryptionSecret:
       name: encry-secret 
       namespace: elastic
   addon:
-    name: elasticsearch
+    name: elasticsearch-addon
     tasks:
-    - name: restore-es
+    - name: LogicalBackupRestore
     jobTemplate:
       spec:
         securityContext:

@@ -1,7 +1,7 @@
 apiVersion: kubedb.com/v1alpha2
 kind: Elasticsearch
 metadata:
-  name: es-demo
+  name: es-quickstart
   namespace: demo
 spec:
   version: xpack-8.8.0

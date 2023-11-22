@@ -34,9 +34,9 @@ spec:
         name: encry-secret # some addon may not support encryption
         namespace: elastic
     addon:
-      name: elasticsearch
+      name: elasticsearch-addon
       tasks:
-      - name: backup-es
+      - name: LogicalBackup
       jobTemplate:
         spec:
           securityContext:

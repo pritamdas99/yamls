@@ -7,6 +7,11 @@ spec:
   version: opensearch-2.8.0
   enableSSL: true
   replicas: 2
+  monitor:
+    agent: prometheus.io
+    prometheus:
+      exporter:
+        port: 56790
   storageType: Durable
   storage:
     storageClassName: "standard"
